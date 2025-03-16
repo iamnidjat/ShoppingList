@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="flex justify-center items-center flex-col">
   <input placeholder="Search by category..." [(ngModel)]="category">
-  @for(item of filterItemsByCategory(); track item.id)
+  @for(item of getCurrentPageItems(); track item.id)
   {
     @if(!this.flag) {
       <span>Name: </span>
@@ -30,7 +30,14 @@
         <input type="button" value="Delete" (click)="deleteItem(item.id!)" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
       </div>
     }
-<!--   <input type="button" value="{{favFlag ? 'Unsave' : 'Save'}}" (click)="switchFavMode(recipe)" class="bg-green-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
     <br>
   }
+
+  <div class="pagination-controls">
+    <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">{{"Previous"}}</button>
+    <span *ngFor="let page of getPageNumbers()">
+      <button (click)="setPage(page)" [class.active]="currentPage === page">{{page}}</button>
+    </span>
+    <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">{{"Next"}}</button>
+  </div>
 </div>
