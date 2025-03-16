@@ -3,11 +3,14 @@ import {Router} from '@angular/router';
 import {ManipulateDataService} from '../../services/manipulate-data.service';
 import {Item} from '../../models/Item';
 import {HeaderComponent} from '../header/header.component';
+import {NgStyle} from '@angular/common';
+import {Product} from '../../models/Product';
 
 @Component({
   selector: 'app-add-item',
   imports: [
-    HeaderComponent
+    HeaderComponent,
+    NgStyle
   ],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.css',
@@ -15,12 +18,38 @@ import {HeaderComponent} from '../header/header.component';
 })
 export class AddItemComponent {
   private myService = inject(ManipulateDataService);
+  public flag: boolean = false;
+  public products: Product[] = [];
 
   constructor(private router: Router) {
   }
 
+  public switchModel(): void {
+    this.flag = !this.flag;
+  }
+
+  public addProducts(productName: string, productQuantity: string): void {
+    const product: Product = {
+      name: productName,
+      quantity: parseInt(productQuantity),
+      isPurchased: false
+    };
+
+    this.products.push(product);
+    this.switchModel();
+  }
+
   public addItem(name: string, category: string): void {
-    const item: Item = { name: name, category: category };
+    const currentItemsCount = localStorage.length;
+    const itemId = currentItemsCount + 1;
+
+    const item: Item = {
+      id: itemId,
+      name: name,
+      category: category,
+      products: this.products
+    };
+
     this.myService.addItem(item);
     this.router.navigate(['/main']);
   }

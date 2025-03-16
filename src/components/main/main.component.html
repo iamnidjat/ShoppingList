@@ -4,19 +4,28 @@
   {
     @if(!this.flag) {
       <span>Name: </span>
-      <input value="{{item.name}}">
+      <input [(ngModel)]="item.name">
       <span>Category: </span>
-      <input value="{{item.category}}">
+      <input [(ngModel)]="item.category">
       <div class="flex justify-center items-center flex-row">
-        <input type="button" value="Modify" (click)="modifyItem(item)" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
-        <input type="button" value="Cancel" (click)="switchMode()" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+        <input type="button" value="Modify" (click)="modifyItem(item.id!, item.name, item.category)" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+        <input type="button" value="Cancel" (click)="switchModel()" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
       </div>
     }
     @else if(this.flag) {
       <div>Name: {{item.name}}</div>
       <div>Category: {{item.category}}</div>
+      @for(product of item.products; track product.id) {
+        <div>Product {{$index + 1}}</div>
+        <div>Name: {{product.name}}</div>
+        <div>Quantity: {{product.quantity}}</div>
+        <span [ngStyle]="{'text-decoration': product.isPurchased ? 'line-through' : 'none', 'color': product.isPurchased ? 'gray' : 'black'}">Purchased
+          <input type="checkbox" [(ngModel)]="product.isPurchased" (click)="changePurchasedField(item.id!, product.id!)">
+        </span>
+        <br>
+      }
       <div class="flex justify-center items-center flex-row">
-        <input type="button" value="Update" (click)="switchMode()" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+        <input type="button" value="Update" (click)="switchModel()" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
         <input type="button" value="Delete" (click)="deleteItem(item.id!)" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
       </div>
     }

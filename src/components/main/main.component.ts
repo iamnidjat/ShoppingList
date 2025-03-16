@@ -3,10 +3,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from '../header/header.component';
 import {ManipulateDataService} from '../../services/manipulate-data.service';
 import {Item} from '../../models/Item';
+import {FormsModule} from '@angular/forms';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-main',
-  imports: [HttpClientModule, HeaderComponent],
+  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle],
   providers: [ManipulateDataService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
@@ -16,7 +18,6 @@ export class MainComponent implements OnInit {
   private myService = inject(ManipulateDataService);
   public items: Item[] = [];
   public flag: boolean = true;
-  // public favFlag: boolean = false;
 
   constructor() {
   }
@@ -28,24 +29,37 @@ export class MainComponent implements OnInit {
     this.items = this.myService.getItems();
   }
 
-  public modifyItem(item: Item) {
-    alert("pretend that it works:)");
-  }
-
-  public switchMode(): void {
+  public switchModel(): void {
     this.flag = !this.flag;
   }
 
   public deleteItem(itemId: number): void {
     this.myService.deleteItem(itemId);
+    this.items = this.myService.getItems();
   }
 
-  public updateItem(itemId: number, item: Item): void {
+  public modifyItem(itemId: number, itemName: string, itemCategory: string): void {
+    const item = {name: itemName, category: itemCategory};
     this.myService.updateItem(itemId, item);
+    this.flag = !this.flag;
+    this.items = this.myService.getItems();
   }
-  //
-  // public switchFavMode(recipe: Recipe): void {
-  //   this.favFlag = !this.favFlag;
-  //   recipe.favourite = !recipe.favourite;
-  // }
+
+  public changePurchasedField(itemId: number, productId: number): void {
+    const item = this.items.find(item => item.id === itemId);
+
+    if (item) {
+      // Find the product by productId
+      const product = item.products!.find(product => product.id === productId);
+
+      if (product) {
+        // Toggle the isPurchased field of the product
+        product.isPurchased = !product.isPurchased;
+      } else {
+        console.log("Product not found");
+      }
+    } else {
+      console.log("Item not found");
+    }
+  }
 }
