@@ -17,16 +17,24 @@ import {NgStyle} from '@angular/common';
 export class MainComponent implements OnInit {
   private myService = inject(ManipulateDataService);
   public items: Item[] = [];
+  public filteredItems: Item[] = [];
   public flag: boolean = true;
+  category: string = "";
 
   constructor() {
   }
 
   ngOnInit(): void {
-    // this.myService.getData().subscribe({next:(data:any) => {
-    //   this.recipes = data["recipes"];
-    // }})
     this.items = this.myService.getItems();
+  }
+
+  public filterItemsByCategory(): Item[] {
+    if (this.category) {
+      return this.myService.filterItemsByCategory(this.category);
+    }
+    else {
+      return this.items;
+    }
   }
 
   public switchModel(): void {

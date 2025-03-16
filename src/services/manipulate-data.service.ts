@@ -54,4 +54,26 @@ export class ManipulateDataService {
       localStorage.setItem(`item${itemId}`, JSON.stringify(newItem));
     }
   }
+
+  public filterItemsByCategory(category: string): Item[] {
+    const filteredItems: Item[] = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      if (key && key.startsWith('item')) {
+        const itemData = localStorage.getItem(key);
+        if (itemData) {
+          const item: Item = JSON.parse(itemData);
+
+          // ✅ Filter by category (case-insensitive)
+          if (!category || item.category.toLowerCase().includes(category.toLowerCase())) {
+            filteredItems.push(item);
+          }
+        }
+      }
+    }
+
+    return filteredItems;
+  }
 }
