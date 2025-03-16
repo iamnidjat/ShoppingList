@@ -38,4 +38,20 @@ export class ManipulateDataService {
   public addItem(item: Item): void {
     localStorage.setItem(`item${item.id}`, JSON.stringify(item));
   }
+
+  public deleteItem(itemId: number): void {
+    const item = localStorage.getItem(`item${itemId}`);
+
+    if (item) {
+      localStorage.removeItem(`item${itemId}`);
+    }
+  }
+
+  public updateItem(itemId: number, newItem: Item): void {
+    const item = localStorage.getItem(`item${itemId}`);
+
+    if (item) {
+      localStorage.setItem(`item${itemId}`, JSON.stringify(newItem));
+    }
+  }
 }

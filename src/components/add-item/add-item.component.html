@@ -1,1 +1,18 @@
-<p>add-item works!</p>
+<app-header></app-header>
+
+<div>
+  <div>Add Item</div>
+  <div>
+    <div>
+      <span>Name: </span>
+      <input placeholder="Name..." #name />
+    </div>
+    <div>
+      <span>Category: </span>
+      <input placeholder="Category..." #category />
+    </div>
+    <div>
+      <input type="button" value="Publish" (click)="addItem(name.value, category.value)"/>
+    </div>
+  </div>
+</div>

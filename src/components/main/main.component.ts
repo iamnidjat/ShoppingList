@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
     this.items = this.myService.getItems();
   }
 
-  public modifyRecipe(item: Item) {
+  public modifyItem(item: Item) {
     alert("pretend that it works:)");
   }
 
@@ -36,21 +36,12 @@ export class MainComponent implements OnInit {
     this.flag = !this.flag;
   }
 
-  public deleteRecipe(item: Item): void {
-    // let storedData = localStorage.getItem('recipes');
-    // console.log(storedData)
-    //
-    // if (storedData) {
-    //   let recipes = JSON.parse(storedData);
-    //   recipes = recipes.filter((recipe: { id: number }) => recipe.id !== recipe.id);
-    //
-    //   localStorage.setItem('recipes', JSON.stringify(recipes));
-    //
-    //   this.items = this.myService.getItems();
-    // }
-    // else {
-    //   console.error("No recipes found in localStorage.");
-    // }
+  public deleteItem(itemId: number): void {
+    this.myService.deleteItem(itemId);
+  }
+
+  public updateItem(itemId: number, item: Item): void {
+    this.myService.updateItem(itemId, item);
   }
   //
   // public switchFavMode(recipe: Recipe): void {
