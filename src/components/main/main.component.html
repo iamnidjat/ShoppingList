@@ -1,26 +1,26 @@
-<!--<app-header></app-header>-->
-<!--<div class="flex justify-center items-center flex-col">-->
-<!--  @for(recipe of recipes; track recipe.id)-->
-<!--  {-->
-<!--    @if(!this.flag) {-->
-<!--      <span>Name: </span>-->
-<!--      <input value="{{recipe.name}}">-->
-<!--      <span>Description: </span>-->
-<!--      <input value="{{recipe.description}}">-->
-<!--      <div class="flex justify-center items-center flex-row">-->
-<!--        <input type="button" value="Modify" (click)="modifyRecipe(recipe)" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
-<!--        <input type="button" value="Cancel" (click)="switchMode()" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
-<!--      </div>-->
-<!--    }-->
-<!--    @else if(this.flag) {-->
-<!--      <div>Name: {{recipe.name}}</div>-->
-<!--      <div>Description: {{recipe.description}}</div>-->
-<!--      <div class="flex justify-center items-center flex-row">-->
-<!--        <input type="button" value="Update" (click)="switchMode()" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
-<!--        <input type="button" value="Delete" (click)="deleteRecipe(recipe)" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
-<!--      </div>-->
-<!--    }-->
-<!--    <input type="button" value="{{favFlag ? 'Unsave' : 'Save'}}" (click)="switchFavMode(recipe)" class="bg-green-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
-<!--    <br>-->
-<!--  }-->
-<!--</div>-->
+<app-header></app-header>
+<div class="flex justify-center items-center flex-col">
+  @for(item of items; track item.id)
+  {
+    @if(!this.flag) {
+      <span>Name: </span>
+      <input value="{{item.name}}">
+      <span>Category: </span>
+      <input value="{{item.category}}">
+      <div class="flex justify-center items-center flex-row">
+        <input type="button" value="Modify" (click)="modifyRecipe(item)" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+        <input type="button" value="Cancel" (click)="switchMode()" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+      </div>
+    }
+    @else if(this.flag) {
+      <div>Name: {{item.name}}</div>
+      <div>Category: {{item.category}}</div>
+      <div class="flex justify-center items-center flex-row">
+        <input type="button" value="Update" (click)="switchMode()" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+        <input type="button" value="Delete" (click)="deleteRecipe(item)" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+      </div>
+    }
+<!--   <input type="button" value="{{favFlag ? 'Unsave' : 'Save'}}" (click)="switchFavMode(recipe)" class="bg-green-500 rounded-xl border-solid p-1 m-1 cursor-pointer">-->
+    <br>
+  }
+</div>

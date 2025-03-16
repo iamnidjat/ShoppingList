@@ -16,8 +16,8 @@ export class HeaderComponent {
   }
 
   public logOut(): void {
-    let username = localStorage.getItem('username')!;
-    localStorage.removeItem(username);
+    let auth = localStorage.getItem('auth')!;
+    localStorage.removeItem(auth);
     this.router.navigate(['/']);
   }
 }
