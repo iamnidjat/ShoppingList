@@ -9,7 +9,10 @@
     </div>
     <div>
       <span>Category: </span>
-      <input placeholder="Category..." #category />
+      <input placeholder="Category..." list="category" #category/>
+      <datalist id="category">
+        <option *ngFor="let category of categories" [value]="category" #category></option>
+      </datalist>
     </div>
     <input type="button" value="Add product" [ngStyle]="{visibility: !this.flag ? '' : 'hidden'}" (click)="switchModel()">
     @if(this.flag) {

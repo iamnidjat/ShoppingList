@@ -3,14 +3,15 @@ import {Router} from '@angular/router';
 import {ManipulateDataService} from '../../services/manipulate-data.service';
 import {Item} from '../../models/Item';
 import {HeaderComponent} from '../header/header.component';
-import {NgStyle} from '@angular/common';
+import {NgForOf, NgStyle} from '@angular/common';
 import {Product} from '../../models/Product';
 
 @Component({
   selector: 'app-add-item',
   imports: [
     HeaderComponent,
-    NgStyle
+    NgStyle,
+    NgForOf
   ],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.css',
@@ -20,6 +21,7 @@ export class AddItemComponent {
   private myService = inject(ManipulateDataService);
   public flag: boolean = false;
   public products: Product[] = [];
+  public categories: string[] = ["Fruits", "Vegetables", "Meat", "Dairy", "Snacks"];
 
   constructor(private router: Router) {
   }

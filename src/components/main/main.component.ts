@@ -17,7 +17,6 @@ import {NgForOf, NgStyle} from '@angular/common';
 export class MainComponent implements OnInit {
   private myService = inject(ManipulateDataService);
   public items: Item[] = [];
-  public filteredItems: Item[] = [];
   public flag: boolean = true;
   public category: string = "";
   // Pagination variables
