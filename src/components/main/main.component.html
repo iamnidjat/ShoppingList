@@ -16,12 +16,17 @@
     @else if(this.flag) {
       <div>Name: {{item.name}}</div>
       <div>Category: {{item.category}}</div>
+      <div>
+        <div>
+          <span>{{getPurchasedCount(item)}}/{{item.products!.length}} products were purchased</span>
+        </div>
+      </div>
       @for(product of item.products; track product.id) {
         <div>Product {{$index + 1}}</div>
         <div>Name: {{product.name}}</div>
         <div>Quantity: {{product.quantity}}</div>
         <span [ngStyle]="{'text-decoration': product.isPurchased ? 'line-through' : 'none', 'color': product.isPurchased ? 'gray' : 'black'}">Purchased
-          <input type="checkbox" [(ngModel)]="product.isPurchased" (click)="changePurchasedField(item.id!, product.id!)">
+          <input type="checkbox" [(ngModel)]="product.isPurchased" (ngModelChange)="changePurchasedField(item.id!, product.id!)">
         </span>
         <br>
       }

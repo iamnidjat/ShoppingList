@@ -89,11 +89,16 @@ export class MainComponent implements OnInit {
       if (product) {
         // Toggle the isPurchased field of the product
         product.isPurchased = !product.isPurchased;
+        this.getPurchasedCount(item);
       } else {
         console.log("Product not found");
       }
     } else {
       console.log("Item not found");
     }
+  }
+
+  public getPurchasedCount(item: any): number {
+    return item.products.filter((product: any) => product.isPurchased).length;
   }
 }
