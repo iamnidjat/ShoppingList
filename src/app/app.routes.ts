@@ -4,6 +4,7 @@ import {MainComponent} from '../components/main/main.component';
 import {NotFoundComponent} from '../components/not-found/not-found.component';
 import {authGuard} from '../guards/auth.guard';
 import {AddItemComponent} from '../components/add-item/add-item.component';
+import {NotAllowedComponent} from '../components/not-allowed/not-allowed.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,11 @@ export const routes: Routes = [
     path: "add-item",
     component: AddItemComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: "not-allowed",
+    component: NotAllowedComponent,
+ //   canActivate: [authGuard]
   },
   {
     path: "**",
