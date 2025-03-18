@@ -1,28 +1,40 @@
-<!-- sign-in.component.html -->
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="username">Username:</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="username"
-      required
-      placeholder="Enter your username"
-    />
-  </div>
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-lg border border-solid border-gray-300 w-96">
+    <h2 class="text-center text-2xl font-semibold mb-6 text-gray-800">Sign In</h2>
 
-  <div>
-    <label for="password">Password:</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      required
-      placeholder="Enter your password"
-    />
-  </div>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="username" class="block text-gray-700 font-semibold mb-2">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Enter your username"
+          class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
 
-  <button>Sign In</button>
-</form>
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 font-semibold mb-2">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Enter your password"
+          class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-green-400 p-2 text-white rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400"
+      >
+        Sign In
+      </button>
+    </form>
+  </div>
+</div>

@@ -26,7 +26,7 @@ export class AddItemComponent {
   constructor(private router: Router) {
   }
 
-  public switchModel(): void {
+  public switchMode(): void {
     this.flag = !this.flag;
   }
 
@@ -38,7 +38,7 @@ export class AddItemComponent {
     };
 
     this.products.push(product);
-    this.switchModel();
+    this.switchMode();
   }
 
   public addItem(name: string, category: string): void {

@@ -1,10 +1,22 @@
-<div>
+<div class="bg-blue-600 p-4 flex items-center justify-between">
+  <!-- Title on the left (slightly off-center) -->
+  <div class="text-white text-xl font-semibold">
+    <span>Your Shopping List</span>
+  </div>
+
+  <!-- Navigation in the center -->
+  <nav class="flex space-x-6 text-white">
+    <a routerLink="/main" class="hover:text-gray-200">Home</a>
+    <a routerLink="/add-item" class="hover:text-gray-200">Add item</a>
+  </nav>
+
+  <!-- Log Out button on the right -->
   <div>
-    <span>RecipeBookApp</span>
-    <nav>
-      <a routerLink="/add-item">Add item</a>
-      <a routerLink="/main">Home</a>
-    </nav>
-    <input type="button" value="Log Out" (click)="logOut()">
+    <input
+      type="button"
+      value="Log Out"
+      (click)="logOut()"
+      class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700 cursor-pointer"
+    />
   </div>
 </div>

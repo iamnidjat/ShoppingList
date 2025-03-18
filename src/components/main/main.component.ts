@@ -17,7 +17,7 @@ import {NgForOf, NgStyle} from '@angular/common';
 export class MainComponent implements OnInit {
   private myService = inject(ManipulateDataService);
   public items: Item[] = [];
-  public flag: boolean = true;
+  public editingItems: { [key: number]: boolean } = {};
   public category: string = "";
   // Pagination variables
   public currentPage: number = 1;
@@ -63,8 +63,8 @@ export class MainComponent implements OnInit {
     }
   }
 
-  public switchModel(): void {
-    this.flag = !this.flag;
+  public switchMode(itemId: number): void {
+    this.editingItems[itemId] = !this.editingItems[itemId];
   }
 
   public deleteItem(itemId: number): void {
@@ -75,7 +75,7 @@ export class MainComponent implements OnInit {
   public modifyItem(itemId: number, itemName: string, itemCategory: string): void {
     const item = {name: itemName, category: itemCategory};
     this.myService.updateItem(itemId, item);
-    this.flag = !this.flag;
+    this.switchMode(itemId);
     this.items = this.myService.getItems();
   }
 

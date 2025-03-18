@@ -1,48 +1,115 @@
 <app-header></app-header>
-<div class="flex justify-center items-center flex-col">
-  <input placeholder="Search by category..." [(ngModel)]="category">
+<div class="flex justify-center items-center flex-col p-6 space-y-6 w-full max-w-4xl mx-auto">
+  <input
+    placeholder="Search by category..."
+    [(ngModel)]="category"
+    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
   @for(item of getCurrentPageItems(); track item.id)
   {
-    @if(!this.flag) {
-      <span>Name: </span>
-      <input [(ngModel)]="item.name">
-      <span>Category: </span>
-      <input [(ngModel)]="item.category">
-      <div class="flex justify-center items-center flex-row">
-        <input type="button" value="Modify" (click)="modifyItem(item.id!, item.name, item.category)" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
-        <input type="button" value="Cancel" (click)="switchModel()" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
-      </div>
-    }
-    @else if(this.flag) {
-      <div>Name: {{item.name}}</div>
-      <div>Category: {{item.category}}</div>
-      <div>
-        <div>
-          <span>{{getPurchasedCount(item)}}/{{item.products!.length}} products were purchased</span>
+    @if(editingItems[item.id!]) {
+      <div class="w-full mb-4 p-4 bg-white border rounded-lg shadow-md">
+        <div class="flex items-center mb-4">
+          <span class="font-semibold text-gray-700">Name:</span>
+          <input [(ngModel)]="item.name" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <div class="flex items-center mb-4">
+          <span class="font-semibold text-gray-700">Category:</span>
+          <input [(ngModel)]="item.category" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <div class="flex justify-center items-center space-x-4">
+          <input
+            type="button"
+            value="Modify"
+            (click)="modifyItem(item.id!, item.name, item.category)"
+            class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            (click)="switchMode(item.id!)"
+            class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
+          />
         </div>
       </div>
-      @for(product of item.products; track product.id) {
-        <div>Product {{$index + 1}}</div>
-        <div>Name: {{product.name}}</div>
-        <div>Quantity: {{product.quantity}}</div>
-        <span [ngStyle]="{'text-decoration': product.isPurchased ? 'line-through' : 'none', 'color': product.isPurchased ? 'gray' : 'black'}">Purchased
-          <input type="checkbox" [(ngModel)]="product.isPurchased" (ngModelChange)="changePurchasedField(item.id!, product.id!)">
-        </span>
-        <br>
-      }
-      <div class="flex justify-center items-center flex-row">
-        <input type="button" value="Update" (click)="switchModel()" class="bg-blue-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
-        <input type="button" value="Delete" (click)="deleteItem(item.id!)" class="bg-red-500 rounded-xl border-solid p-1 m-1 cursor-pointer">
+    }
+    @else if(!editingItems[item.id!]) {
+      <div class="w-full mb-4 p-4 bg-white border rounded-lg shadow-md">
+        <div class="mb-4">
+          <div><span class="font-semibold">Name:</span> {{item.name}}</div>
+          <div><span class="font-semibold">Category:</span> {{item.category}}</div>
+          <div class="mt-2">
+            <span>{{getPurchasedCount(item)}}/{{item.products!.length}} products were purchased</span>
+          </div>
+        </div>
+
+        <!-- Products loop -->
+        @for(product of item.products; track product.id)
+        {
+          <div class="mb-4">
+            <div><span class="font-semibold">Product {{$index + 1}}</span></div>
+            <div><span class="font-semibold">Name:</span> {{product.name}}</div>
+            <div><span class="font-semibold">Quantity:</span> {{product.quantity}}</div>
+            <div>
+              <span [ngStyle]="{
+                  'text-decoration': product.isPurchased ? 'line-through' : 'none',
+                  'color': product.isPurchased ? 'gray' : 'black'
+                }"
+              >
+                Purchased
+                <input
+                  type="checkbox"
+                  [(ngModel)]="product.isPurchased"
+                  (ngModelChange)="changePurchasedField(item.id!, product.id!)"
+                  class="ml-2"
+                />
+              </span>
+            </div>
+          </div>
+        }
+
+        <div class="flex justify-center items-center space-x-4">
+          <input
+            type="button"
+            value="Update"
+            (click)="switchMode(item.id!)"
+            class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+          />
+          <input
+            type="button"
+            value="Delete"
+            (click)="deleteItem(item.id!)"
+            class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
+          />
+        </div>
       </div>
     }
     <br>
   }
 
-  <div class="pagination-controls">
-    <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">{{"Previous"}}</button>
+  <div class="pagination-controls flex justify-center items-center space-x-4 mt-6">
+    <button
+      (click)="setPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 disabled:opacity-50"
+    >
+      Previous
+    </button>
     <span *ngFor="let page of getPageNumbers()">
-      <button (click)="setPage(page)" [class.active]="currentPage === page">{{page}}</button>
+      <button
+        (click)="setPage(page)"
+        [class.active]="currentPage === page"
+        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-blue-400 disabled:opacity-50"
+      >
+        {{page}}
+      </button>
     </span>
-    <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">{{"Next"}}</button>
+    <button
+      (click)="setPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 disabled:opacity-50"
+    >
+      Next
+    </button>
   </div>
 </div>

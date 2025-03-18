@@ -1,34 +1,98 @@
 <app-header></app-header>
 
-<div>
-  <div>Add Item</div>
-  <div>
-    <div>
-      <span>Name: </span>
-      <input placeholder="Name..." #name />
+<div class="flex flex-col items-center p-6 space-y-6 w-full max-w-3xl mx-auto">
+  <!-- Add Item Title -->
+  <div class="text-2xl font-semibold text-gray-700">Add Item</div>
+
+  <!-- Add Item Form -->
+  <div class="w-full bg-white border rounded-lg shadow-md p-6 space-y-4">
+    <!-- Name input -->
+    <div class="flex items-center space-x-2">
+      <span class="font-semibold text-gray-700">Name:</span>
+      <input
+        placeholder="Name..."
+        #name
+        class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+      />
     </div>
-    <div>
-      <span>Category: </span>
-      <input placeholder="Category..." list="category" #category/>
+
+    <!-- Category input -->
+    <div class="flex items-center space-x-2">
+      <span class="font-semibold text-gray-700">Category:</span>
+      <input
+        placeholder="Category..."
+        list="category"
+        #category
+        class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+      />
       <datalist id="category">
-        <option *ngFor="let category of categories" [value]="category" #category></option>
+        <option *ngFor="let category of categories" [value]="category"></option>
       </datalist>
     </div>
-    <input type="button" value="Add product" [ngStyle]="{visibility: !this.flag ? '' : 'hidden'}" (click)="switchModel()">
+
+    <!-- Button to toggle product input visibility -->
+    <div class="flex justify-center mt-4">
+      <input
+        type="button"
+        value="Add product"
+        [ngStyle]="{visibility: !this.flag ? '' : 'hidden'}"
+        (click)="switchMode()"
+        class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+      />
+    </div>
+
+    <!-- Conditional Product Inputs (visible when flag is true) -->
     @if(this.flag) {
-      <div>
-        <span>Product name: </span>
-        <input placeholder="Name..." #productName />
+      <div class="space-y-4">
+        <!-- Product name input -->
+        <div class="flex items-center space-x-2">
+          <span class="font-semibold text-gray-700">Product name:</span>
+          <input
+            placeholder="Product name..."
+            #productName
+            class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+          />
+        </div>
+
+        <!-- Quantity input -->
+        <div class="flex items-center space-x-2">
+          <span class="font-semibold text-gray-700">Quantity:</span>
+          <input
+            type="number"
+            value="1"
+            min="1"
+            max="99"
+            #productQuantity
+            class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+          />
+        </div>
+
+        <!-- Submit and Cancel buttons -->
+        <div class="flex justify-center space-x-4 mt-4">
+          <input
+            type="button"
+            value="Submit"
+            (click)="addProducts(productName.value, productQuantity.value)"
+            class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 cursor-pointer"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            (click)="switchMode()"
+            class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
+          />
+        </div>
       </div>
-      <div>
-        <span>Quantity: </span>
-        <input type="number" value="1" min="1" max="99" #productQuantity />
-      </div>
-      <input type="button" value="Submit" (click)="addProducts(productName.value, productQuantity.value)">
-      <input type="button" value="Cancel" (click)="switchModel()">
     }
-    <div>
-      <input type="button" value="Add" (click)="addItem(name.value, category.value)"/>
+
+    <!-- Add Item Button -->
+    <div class="flex justify-center mt-4">
+      <input
+        type="button"
+        value="Add"
+        (click)="addItem(name.value, category.value)"
+        class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+      />
     </div>
   </div>
 </div>
