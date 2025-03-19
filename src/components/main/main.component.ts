@@ -5,10 +5,11 @@ import {ManipulateDataService} from '../../services/manipulate-data.service';
 import {Item} from '../../models/Item';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgStyle} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main',
-  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf],
+  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe],
   providers: [ManipulateDataService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',

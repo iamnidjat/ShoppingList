@@ -4,6 +4,15 @@
     <span>Your Shopping List</span>
   </div>
 
+  <div class="flex items-center gap-2">
+    <img #en (click)="switchLang(en.alt)" src="https://cdn-icons-png.flaticon.com/128/555/555417.png"
+         alt="en" class="w-6 h-6 cursor-pointer hover:opacity-80">
+    <img #ru (click)="switchLang(ru.alt)" src="https://cdn-icons-png.flaticon.com/128/330/330437.png"
+         alt="ru" class="w-6 h-6 cursor-pointer hover:opacity-80">
+    <img #az (click)="switchLang(az.alt)" src="https://cdn-icons-png.flaticon.com/128/330/330544.png"
+         alt="az" class="w-6 h-6 cursor-pointer hover:opacity-80">
+  </div>
+
   <!-- Navigation in the center -->
   <nav class="flex space-x-6 text-white">
     <a routerLink="/main" class="hover:text-gray-200">Home</a>
