@@ -41,6 +41,10 @@ export class AddItemComponent {
     this.switchMode();
   }
 
+  public removeProduct(productId: number): void {
+    this.products = this.products.filter(product => product.id !== productId);
+  }
+
   public addItem(name: string, category: string): void {
     const currentItemsCount = localStorage.length;
     const itemId = currentItemsCount + 1;

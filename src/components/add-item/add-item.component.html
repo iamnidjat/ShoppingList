@@ -30,6 +30,21 @@
       </datalist>
     </div>
 
+    <div>
+      <div>Added Products</div>
+      @for(product of products; track product.id)
+      {
+        <div>{{product.name}}</div>
+        <div>{{product.quantity}}</div>
+        <input
+          type="button"
+          value="Remove"
+          (click)="removeProduct(product.id!)"
+          class="bg-red-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+        />
+      }
+    </div>
+
     <!-- Button to toggle product input visibility -->
     <div class="flex justify-center mt-4">
       <input
