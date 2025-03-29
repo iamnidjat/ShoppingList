@@ -41,8 +41,10 @@ export class AddItemComponent {
     this.switchMode();
   }
 
-  public removeProduct(productId: number): void {
-    this.products = this.products.filter(product => product.id !== productId);
+  public removeProduct(index: number): void {
+    if (index >= 0 && index < this.products.length) {
+      this.products.splice(index, 1);
+    }
   }
 
   public addItem(name: string, category: string): void {
