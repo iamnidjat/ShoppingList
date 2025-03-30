@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="flex justify-center items-center flex-col p-6 space-y-6 w-full max-w-4xl mx-auto">
   <input
-    placeholder="{{'Search by category' | translate}}..."
+    placeholder="{{'search-by-category' | translate}}..."
     [(ngModel)]="category"
     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
   @for(item of getCurrentPageItems(); track item.id)
@@ -44,13 +44,14 @@
         </div>
 
         <!-- Products loop -->
-        @for(product of item.products; track product.id)
-        {
-          <div class="mb-4">
-            <div><span class="font-semibold">Product {{$index + 1}}</span></div>
-            <div><span class="font-semibold">Name:</span> {{product.name}}</div>
-            <div><span class="font-semibold">Quantity:</span> {{product.quantity}}</div>
-            <div>
+        <div cdkDropList [cdkDropListData]="item.products || []" (cdkDropListDropped)="drop($event, item)">
+          @for(product of item.products; track product.id)
+          {
+            <div class="mb-4" cdkDrag>
+              <div><span class="font-semibold">Product {{$index + 1}}</span></div>
+              <div><span class="font-semibold">Name:</span> {{product.name}}</div>
+              <div><span class="font-semibold">Quantity:</span> {{product.quantity}}</div>
+              <div>
               <span [ngStyle]="{
                   'text-decoration': product.isPurchased ? 'line-through' : 'none',
                   'color': product.isPurchased ? 'gray' : 'black'
@@ -64,9 +65,10 @@
                   class="ml-2"
                 />
               </span>
+              </div>
             </div>
-          </div>
-        }
+          }
+        </div>
 
         <div class="flex justify-center items-center space-x-4">
           <input

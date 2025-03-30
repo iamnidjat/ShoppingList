@@ -66,7 +66,6 @@ export class ManipulateDataService {
         if (itemData) {
           const item: Item = JSON.parse(itemData);
 
-          // ✅ Filter by category (case-insensitive)
           if (!category || item.category.toLowerCase().includes(category.toLowerCase())) {
             filteredItems.push(item);
           }

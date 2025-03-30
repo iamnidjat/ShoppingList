@@ -1,0 +1,6 @@
+[cdkDrag] {
+  cursor: grab;
+}
+[cdkDrag]:active {
+  cursor: grabbing;
+}

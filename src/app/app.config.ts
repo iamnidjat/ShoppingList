@@ -12,7 +12,9 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
     provideHttpClient(),
     TranslateService,
     TranslateStore,
@@ -26,7 +28,6 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-// required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './assets/i18', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {azerbaijaniSettings, englishSettings, LanguageSettings, russianSettings} from "../app/assets/language-settings";
+import {azerbaijaniSettings, englishSettings, LanguageSettings, russianSettings} from "../assets/language-settings";
 
 @Injectable({
   providedIn: 'root'

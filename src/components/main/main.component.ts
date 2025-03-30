@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectorRef} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from '../header/header.component';
 import {ManipulateDataService} from '../../services/manipulate-data.service';
@@ -6,10 +6,11 @@ import {Item} from '../../models/Item';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgStyle} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-main',
-  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe],
+  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe, DragDropModule],
   providers: [ManipulateDataService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
@@ -25,12 +26,20 @@ export class MainComponent implements OnInit {
   public pageSize: number = 2;
   public totalPages: number = 0;
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.items = this.myService.getItems();
     this.totalPages = Math.ceil(this.items.length / this.pageSize);
+  }
+
+  drop(event: CdkDragDrop<any[]>, item: Item) {
+    if (item.products) {
+      moveItemInArray(item.products, event.previousIndex, event.currentIndex);
+    }
+
+    this.cdr.detectChanges();
   }
 
   // Pagination methods
@@ -88,8 +97,8 @@ export class MainComponent implements OnInit {
       const product = item.products!.find(product => product.id === productId);
 
       if (product) {
-        // Toggle the isPurchased field of the product
         product.isPurchased = !product.isPurchased;
+        localStorage.setItem(`item${itemId}`, JSON.stringify(item));
         this.getPurchasedCount(item);
       } else {
         console.log("Product not found");
