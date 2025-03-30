@@ -125,4 +125,45 @@ export class MainComponent implements OnInit {
   public getPurchasedCount(item: any): number {
     return item.products.filter((product: any) => product.isPurchased).length;
   }
+
+  public copyListToClipboard(): void {
+    let listText = "🛒 Shopping List:\n\n";
+
+    this.items.forEach(item => {
+      listText += `📌 ${item.name} (${item.category})\n`;
+
+      if (item.products && item.products.length > 0) {
+        item.products.forEach((product, index) => {
+          listText += `   ${index + 1}. ${product.name} - ${product.quantity} - ${product.isPurchased ? '(Purchased)' : '(Not Purchased)'}\n`;
+        });
+      }
+
+      listText += "\n";
+    });
+
+    navigator.clipboard.writeText(listText).then(() => {
+      alert("Shopping list copied to clipboard! ✅");
+    }).catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
+  }
+
+  public shareOnWhatsApp(): void {
+    let listText = encodeURIComponent("🛒 Shopping List:\n\n");
+
+    this.items.forEach(item => {
+      listText += encodeURIComponent(`📌 ${item.name} (${item.category})\n`);
+
+      if (item.products && item.products.length > 0) {
+        item.products.forEach((product, index) => {
+          listText += encodeURIComponent(`   ${index + 1}. ${product.name} - ${product.quantity}\n`);
+        });
+      }
+
+      listText += encodeURIComponent("\n");
+    });
+
+    const whatsappUrl = `https://wa.me/?text=${listText}`;
+    window.open(whatsappUrl, "_blank");
+  }
 }
