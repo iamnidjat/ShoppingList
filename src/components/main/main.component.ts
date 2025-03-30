@@ -7,10 +7,11 @@ import {FormsModule} from '@angular/forms';
 import {NgForOf, NgStyle} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
+import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'app-main',
-  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe, DragDropModule],
+  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe, DragDropModule, ScrollToTopComponent],
   providers: [ManipulateDataService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
