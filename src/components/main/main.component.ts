@@ -8,6 +8,7 @@ import {NgForOf, NgStyle} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
+import {Product} from '../../models/Product';
 
 @Component({
   selector: 'app-main',
@@ -83,11 +84,23 @@ export class MainComponent implements OnInit {
     this.items = this.myService.getItems();
   }
 
-  public modifyItem(itemId: number, itemName: string, itemCategory: string): void {
-    const item = {name: itemName, category: itemCategory};
-    this.myService.updateItem(itemId, item);
-    this.switchMode(itemId);
-    this.items = this.myService.getItems();
+  public modifyItem(itemId: number, itemName: string, itemCategory: string, products: Product[]): void {
+    if (itemName !== '' && itemCategory !== '')
+    {
+      for (let product of products) {
+        if (product.name === '' || isNaN(product.quantity) || product.quantity <= 0) {
+          alert("Please ensure all products have a valid name and quantity.");
+          return;
+        }
+      }
+
+      const item = {id: itemId, name: itemName, category: itemCategory, products: products};
+      this.myService.updateItem(itemId, item);
+      this.switchMode(itemId);
+      this.items = this.myService.getItems();
+    } else {
+      alert("Fill in all the blanks please!");
+    }
   }
 
   public changePurchasedField(itemId: number, productId: number): void {

@@ -23,22 +23,31 @@ export class AddItemComponent {
   public products: Product[] = [];
   public categories: string[] = ["Fruits", "Vegetables", "Meat", "Dairy", "Snacks"];
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   public switchMode(): void {
     this.flag = !this.flag;
   }
 
   public addProducts(productName: string, productQuantity: string): void {
-    const product: Product = {
-      name: productName,
-      quantity: parseInt(productQuantity),
-      isPurchased: false
-    };
+    if (productName !== '' && productQuantity !== '') {
+      const parsedQuantity = parseInt(productQuantity);
 
-    this.products.push(product);
-    this.switchMode();
+      if (!isNaN(parsedQuantity) && parsedQuantity > 0) {
+        const product: Product = {
+          name: productName,
+          quantity: parsedQuantity,
+          isPurchased: false
+        };
+
+        this.products.push(product);
+        this.switchMode();
+      } else {
+        alert("Please enter a valid quantity (positive number)!");
+      }
+    } else {
+      alert("Fill in all the blanks please!");
+    }
   }
 
   public removeProduct(index: number): void {
@@ -48,17 +57,21 @@ export class AddItemComponent {
   }
 
   public addItem(name: string, category: string): void {
-    const currentItemsCount = localStorage.length;
-    const itemId = currentItemsCount + 1;
+    if (name !== '' && category !== '') {
+        const currentItemsCount = localStorage.length;
+        const itemId = currentItemsCount + 1;
 
-    const item: Item = {
-      id: itemId,
-      name: name,
-      category: category,
-      products: this.products
-    };
+        const item: Item = {
+          id: itemId,
+          name: name,
+          category: category,
+          products: this.products
+        };
 
-    this.myService.addItem(item);
-    this.router.navigate(['/main']);
+        this.myService.addItem(item);
+        this.router.navigate(['/main']);
+      } else {
+      alert("Fill in all the blanks please!");
+    }
   }
 }

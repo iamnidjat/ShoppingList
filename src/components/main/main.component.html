@@ -4,6 +4,11 @@
     placeholder="{{'search-by-category' | translate}}..."
     [(ngModel)]="category"
     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+</div>
+
+
+@if(items.length !== 0)
+{
   @for(item of getCurrentPageItems(); track item.id)
   {
     @if(editingItems[item.id!]) {
@@ -17,11 +22,24 @@
           <input [(ngModel)]="item.category" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
         </div>
 
+        @for(product of item.products; track product.id)
+        {
+          <span class="font-semibold">Product {{$index + 1}}</span>
+          <div class="mb-4">
+            <span class="font-semibold">Name:</span>
+            <input [(ngModel)]="product.name" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+          <div class="mb-4">
+            <span class="font-semibold">Quantity:</span>
+            <input type="number" [(ngModel)]="product.quantity" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+        }
+
         <div class="flex justify-center items-center space-x-4">
           <input
             type="button"
             value="Modify"
-            (click)="modifyItem(item.id!, item.name, item.category)"
+            (click)="modifyItem(item.id!, item.name, item.category, item.products!)"
             class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
           />
           <input
@@ -52,19 +70,19 @@
               <div><span class="font-semibold">Name:</span> {{product.name}}</div>
               <div><span class="font-semibold">Quantity:</span> {{product.quantity}}</div>
               <div>
-              <span [ngStyle]="{
-                  'text-decoration': product.isPurchased ? 'line-through' : 'none',
-                  'color': product.isPurchased ? 'gray' : 'black'
-                }"
-              >
-                Purchased
-                <input
-                  type="checkbox"
-                  [(ngModel)]="product.isPurchased"
-                  (ngModelChange)="changePurchasedField(item.id!, product.id!)"
-                  class="ml-2"
-                />
-              </span>
+            <span [ngStyle]="{
+                'text-decoration': product.isPurchased ? 'line-through' : 'none',
+                'color': product.isPurchased ? 'gray' : 'black'
+              }"
+            >
+              Purchased
+              <input
+                type="checkbox"
+                [(ngModel)]="product.isPurchased"
+                (ngModelChange)="changePurchasedField(item.id!, product.id!)"
+                class="ml-2"
+              />
+            </span>
               </div>
             </div>
           }
@@ -98,14 +116,14 @@
       Previous
     </button>
     <span *ngFor="let page of getPageNumbers()">
-      <button
-        (click)="setPage(page)"
-        [class.active]="currentPage === page"
-        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-blue-400 disabled:opacity-50"
-      >
-        {{page}}
-      </button>
-    </span>
+    <button
+      (click)="setPage(page)"
+      [class.active]="currentPage === page"
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-blue-400 disabled:opacity-50"
+    >
+      {{page}}
+    </button>
+  </span>
     <button
       (click)="setPage(currentPage + 1)"
       [disabled]="currentPage === totalPages"
@@ -114,6 +132,11 @@
       Next
     </button>
   </div>
-</div>
+}
+@else {
+  <div>
+    There are no items here yet
+  </div>
+}
 
 <app-scroll-to-top/>
