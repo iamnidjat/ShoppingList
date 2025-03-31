@@ -5,7 +5,7 @@ import {ManipulateDataService} from '../../services/manipulate-data.service';
 import {Item} from '../../models/Item';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgStyle} from '@angular/common';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
 import {Product} from '../../models/Product';
@@ -21,6 +21,7 @@ import {FooterComponent} from '../footer/footer.component';
 })
 export class MainComponent implements OnInit {
   private myService = inject(ManipulateDataService);
+  private translate = inject(TranslateService);
   public items: Item[] = [];
   public editingItems: { [key: number]: boolean } = {};
   public category: string = "";
@@ -90,7 +91,7 @@ export class MainComponent implements OnInit {
     {
       for (let product of products) {
         if (product.name === '' || isNaN(product.quantity) || product.quantity <= 0) {
-          alert("Please ensure all products have a valid name and quantity.");
+          alert(this.translate.instant('invalid-product'));
           return;
         }
       }
@@ -100,7 +101,7 @@ export class MainComponent implements OnInit {
       this.switchMode(itemId);
       this.items = this.myService.getItems();
     } else {
-      alert("Fill in all the blanks please!");
+      alert(this.translate.instant('fill-blanks'));
     }
   }
 
@@ -108,7 +109,6 @@ export class MainComponent implements OnInit {
     const item = this.items.find(item => item.id === itemId);
 
     if (item) {
-      // Find the product by productId
       const product = item.products!.find(product => product.id === productId);
 
       if (product) {
@@ -116,10 +116,10 @@ export class MainComponent implements OnInit {
         localStorage.setItem(`item${itemId}`, JSON.stringify(item));
         this.getPurchasedCount(item);
       } else {
-        console.log("Product not found");
+        console.log(this.translate.instant('item-not-found'));
       }
     } else {
-      console.log("Item not found");
+      console.log(this.translate.instant('item-not-found'));
     }
   }
 
@@ -128,14 +128,14 @@ export class MainComponent implements OnInit {
   }
 
   public copyListToClipboard(): void {
-    let listText = "🛒 Shopping List:\n\n";
+    let listText = this.translate.instant('shopping-list') + ":\n\n";
 
     this.items.forEach(item => {
       listText += `📌 ${item.name} (${item.category})\n`;
 
       if (item.products && item.products.length > 0) {
         item.products.forEach((product, index) => {
-          listText += `   ${index + 1}. ${product.name} - ${product.quantity} - ${product.isPurchased ? '(Purchased)' : '(Not Purchased)'}\n`;
+          listText += `   ${index + 1}. ${product.name} - ${product.quantity} - ${product.isPurchased ? this.translate.instant('purchased') : this.translate.instant('not-purchased')}\n`;
         });
       }
 
@@ -143,21 +143,21 @@ export class MainComponent implements OnInit {
     });
 
     navigator.clipboard.writeText(listText).then(() => {
-      alert("Shopping list copied to clipboard! ✅");
+      alert(this.translate.instant('list-copied'));
     }).catch(err => {
-      console.error("Failed to copy text: ", err);
+      console.error(this.translate.instant('copy-failed'), err);
     });
   }
 
   public shareOnWhatsApp(): void {
-    let listText = encodeURIComponent("🛒 Shopping List:\n\n");
+    let listText = this.translate.instant('shopping-list') + ":\n\n";
 
     this.items.forEach(item => {
       listText += encodeURIComponent(`📌 ${item.name} (${item.category})\n`);
 
       if (item.products && item.products.length > 0) {
         item.products.forEach((product, index) => {
-          listText += encodeURIComponent(`   ${index + 1}. ${product.name} - ${product.quantity}\n`);
+          listText += encodeURIComponent(`   ${index + 1}. ${product.name} - ${product.quantity} - ${product.isPurchased ? this.translate.instant('purchased') : this.translate.instant('not-purchased')}\n`);
         });
       }
 

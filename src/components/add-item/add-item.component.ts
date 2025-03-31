@@ -5,13 +5,19 @@ import {Item} from '../../models/Item';
 import {HeaderComponent} from '../header/header.component';
 import {NgForOf, NgStyle} from '@angular/common';
 import {Product} from '../../models/Product';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
+import {FooterComponent} from '../footer/footer.component';
 
 @Component({
   selector: 'app-add-item',
   imports: [
     HeaderComponent,
     NgStyle,
-    NgForOf
+    NgForOf,
+    TranslatePipe,
+    ScrollToTopComponent,
+    FooterComponent
   ],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.css',
@@ -19,9 +25,16 @@ import {Product} from '../../models/Product';
 })
 export class AddItemComponent {
   private myService = inject(ManipulateDataService);
+  private translate = inject(TranslateService);
   public flag: boolean = false;
   public products: Product[] = [];
-  public categories: string[] = ["Fruits", "Vegetables", "Meat", "Dairy", "Snacks"];
+  public categories: string[] = [
+    this.translate.instant('fruits'),
+    this.translate.instant('vegetables'),
+    this.translate.instant('meat'),
+    this.translate.instant('dairy'),
+    this.translate.instant('snacks')
+  ];
 
   constructor(private router: Router) {}
 
@@ -43,10 +56,10 @@ export class AddItemComponent {
         this.products.push(product);
         this.switchMode();
       } else {
-        alert("Please enter a valid quantity (positive number)!");
+        alert(this.translate.instant('invalid-quantity'));
       }
     } else {
-      alert("Fill in all the blanks please!");
+      alert(this.translate.instant('fill-blanks'));
     }
   }
 
@@ -71,7 +84,7 @@ export class AddItemComponent {
         this.myService.addItem(item);
         this.router.navigate(['/main']);
       } else {
-      alert("Fill in all the blanks please!");
+      alert(this.translate.instant('fill-blanks'));
     }
   }
 }

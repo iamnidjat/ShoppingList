@@ -1,8 +1,11 @@
+<app-header/>
 <div class="not-allowed-container">
   <div class="not-allowed-container text-center">
     <h1 class="not-allowed-container">404</h1>
-    <p class="not-allowed-message">You are not allowed to visit this page!</p>
-    <a (click)="goBack()" class="btn btn-primary">Go back</a>
+    <p class="not-allowed-message">{{ 'not-allowed-page' | translate }}!</p>
+    <a (click)="goBack()" class="btn btn-primary">{{ 'go-back' | translate }}</a>
   </div>
 </div>
 
+<app-scroll-to-top/>
+<app-footer/>

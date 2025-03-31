@@ -1,26 +1,22 @@
-<app-header></app-header>
+<app-header/>
 
 <div class="flex flex-col items-center p-6 space-y-6 w-full max-w-3xl mx-auto">
-  <!-- Add Item Title -->
-  <div class="text-2xl font-semibold text-gray-700">Add Item</div>
+  <div class="text-2xl font-semibold text-gray-700">{{ 'add-item' | translate }}</div>
 
-  <!-- Add Item Form -->
   <div class="w-full bg-white border rounded-lg shadow-md p-6 space-y-4">
-    <!-- Name input -->
     <div class="flex items-center space-x-2">
-      <span class="font-semibold text-gray-700">Name:</span>
+      <span class="font-semibold text-gray-700">{{ 'name' | translate }}:</span>
       <input
-        placeholder="Name..."
+        placeholder="{{ 'name' | translate}}..."
         #name
         class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
       />
     </div>
 
-    <!-- Category input -->
     <div class="flex items-center space-x-2">
-      <span class="font-semibold text-gray-700">Category:</span>
+      <span class="font-semibold text-gray-700">{{ 'category' | translate }}:</span>
       <input
-        placeholder="Category..."
+        placeholder="{{ 'category' | translate}}..."
         list="category"
         #category
         class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
@@ -31,39 +27,37 @@
     </div>
 
     <div>
-      <div>Added Products</div>
+      <div>{{ 'added-products' | translate }}:</div>
       @for(product of products; track $index)
       {
-        <div>{{product.name}}</div>
-        <div>{{product.quantity}}</div>
+        <div>{{'product-name' | translate}}: {{product.name}}</div>
+        <div>{{'product-quantity' | translate}}: {{product.quantity}}</div>
         <input
           type="button"
-          value="Remove"
+          value="{{'remove' | translate}}"
           (click)="removeProduct($index)"
           class="bg-red-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
         />
       }
     </div>
 
-    <!-- Button to toggle product input visibility -->
     <div class="flex justify-center mt-4">
       <input
         type="button"
-        value="Add product"
+        value="{{'add-product' | translate}}"
         [ngStyle]="{visibility: !this.flag ? '' : 'hidden'}"
         (click)="switchMode()"
         class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
       />
     </div>
 
-    <!-- Conditional Product Inputs (visible when flag is true) -->
     @if(this.flag) {
       <div class="space-y-4">
         <!-- Product name input -->
         <div class="flex items-center space-x-2">
-          <span class="font-semibold text-gray-700">Product name:</span>
+          <span class="font-semibold text-gray-700">{{ 'product-name'  | translate}}:</span>
           <input
-            placeholder="Product name..."
+            placeholder="{{'product-name' | translate}}..."
             #productName
             class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
           />
@@ -71,7 +65,7 @@
 
         <!-- Quantity input -->
         <div class="flex items-center space-x-2">
-          <span class="font-semibold text-gray-700">Quantity:</span>
+          <span class="font-semibold text-gray-700">{{ 'quantity' | translate }}:</span>
           <input
             type="number"
             value="1"
@@ -82,17 +76,16 @@
           />
         </div>
 
-        <!-- Submit and Cancel buttons -->
         <div class="flex justify-center space-x-4 mt-4">
           <input
             type="button"
-            value="Submit"
+            value="{{'submit' | translate}}"
             (click)="addProducts(productName.value, productQuantity.value)"
             class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 cursor-pointer"
           />
           <input
             type="button"
-            value="Cancel"
+            value="{{'cancel' | translate}}"
             (click)="switchMode()"
             class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
           />
@@ -100,14 +93,16 @@
       </div>
     }
 
-    <!-- Add Item Button -->
     <div class="flex justify-center mt-4">
       <input
         type="button"
-        value="Add"
+        value="{{'add-item' | translate}}"
         (click)="addItem(name.value, category.value)"
         class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
       />
     </div>
   </div>
 </div>
+
+<app-scroll-to-top/>
+<app-footer/>

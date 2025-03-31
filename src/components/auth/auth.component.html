@@ -1,30 +1,32 @@
+<app-header/>
+
 <div class="flex justify-center items-center h-screen bg-gray-100">
   <div class="bg-white p-8 rounded-lg shadow-lg border border-solid border-gray-300 w-96">
-    <h2 class="text-center text-2xl font-semibold mb-6 text-gray-800">Sign In</h2>
+    <h2 class="text-center text-2xl font-semibold mb-6 text-gray-800">{{'sign-in' | translate }}</h2>
 
     <form (ngSubmit)="onSubmit()">
       <div class="mb-4">
-        <label for="username" class="block text-gray-700 font-semibold mb-2">Username:</label>
+        <label for="username" class="block text-gray-700 font-semibold mb-2">{{ 'username' | translate }}:</label>
         <input
           type="text"
           id="username"
           name="username"
           [(ngModel)]="username"
           required
-          placeholder="Enter your username"
+          placeholder="{{'enter-your-username' | translate}}"
           class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       <div class="mb-6">
-        <label for="password" class="block text-gray-700 font-semibold mb-2">Password:</label>
+        <label for="password" class="block text-gray-700 font-semibold mb-2">{{ 'password' | translate }}:</label>
         <input
           type="password"
           id="password"
           name="password"
           [(ngModel)]="password"
           required
-          placeholder="Enter your password"
+          placeholder="{{'enter-your-password' | translate}}"
           class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
@@ -33,8 +35,11 @@
         type="submit"
         class="w-full bg-green-400 p-2 text-white rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400"
       >
-        Sign In
+        {{'sign-in' | translate }}
       </button>
     </form>
   </div>
 </div>
+
+<app-scroll-to-top/>
+<app-footer/>

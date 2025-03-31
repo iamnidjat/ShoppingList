@@ -1,11 +1,10 @@
-<app-header></app-header>
+<app-header/>
 <div class="flex justify-center items-center flex-col p-6 space-y-6 w-full max-w-4xl mx-auto">
   <input
     placeholder="{{'search-by-category' | translate}}..."
     [(ngModel)]="category"
     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
 </div>
-
 
 @if(items.length !== 0)
 {
@@ -14,23 +13,23 @@
     @if(editingItems[item.id!]) {
       <div class="w-full mb-4 p-4 bg-white border rounded-lg shadow-md">
         <div class="flex items-center mb-4">
-          <span class="font-semibold text-gray-700">Name:</span>
+          <span class="font-semibold text-gray-700">{{ 'name' | translate }}:</span>
           <input [(ngModel)]="item.name" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
         </div>
         <div class="flex items-center mb-4">
-          <span class="font-semibold text-gray-700">Category:</span>
+          <span class="font-semibold text-gray-700">{{ 'category' | translate }}:</span>
           <input [(ngModel)]="item.category" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
         </div>
 
         @for(product of item.products; track product.id)
         {
-          <span class="font-semibold">Product {{$index + 1}}</span>
+          <span class="font-semibold">{{ 'product' | translate }} {{$index + 1}}</span>
           <div class="mb-4">
-            <span class="font-semibold">Name:</span>
+            <span class="font-semibold">{{ 'name' | translate }}:</span>
             <input [(ngModel)]="product.name" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
           <div class="mb-4">
-            <span class="font-semibold">Quantity:</span>
+            <span class="font-semibold">{{ 'quantity' | translate }}:</span>
             <input type="number" [(ngModel)]="product.quantity" class="ml-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
         }
@@ -38,13 +37,13 @@
         <div class="flex justify-center items-center space-x-4">
           <input
             type="button"
-            value="Modify"
+            value="{{'modify' | translate}}"
             (click)="modifyItem(item.id!, item.name, item.category, item.products!)"
             class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
           />
           <input
             type="button"
-            value="Cancel"
+            value="{{'cancel' | translate}}"
             (click)="switchMode(item.id!)"
             class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
           />
@@ -54,10 +53,10 @@
     @else if(!editingItems[item.id!]) {
       <div class="w-full mb-4 p-4 bg-white border rounded-lg shadow-md">
         <div class="mb-4">
-          <div><span class="font-semibold">Name:</span> {{item.name}}</div>
-          <div><span class="font-semibold">Category:</span> {{item.category}}</div>
+          <div><span class="font-semibold">{{ 'name' | translate }}:</span> {{item.name}}</div>
+          <div><span class="font-semibold">{{ 'category' | translate }}:</span> {{item.category}}</div>
           <div class="mt-2">
-            <span>{{getPurchasedCount(item)}}/{{item.products!.length}} products were purchased</span>
+            <span>{{getPurchasedCount(item)}}/{{item.products!.length}} {{ 'products-were-purchased' | translate }}</span>
           </div>
         </div>
 
@@ -66,9 +65,9 @@
           @for(product of item.products; track product.id)
           {
             <div class="mb-4" cdkDrag>
-              <div><span class="font-semibold">Product {{$index + 1}}</span></div>
-              <div><span class="font-semibold">Name:</span> {{product.name}}</div>
-              <div><span class="font-semibold">Quantity:</span> {{product.quantity}}</div>
+              <div><span class="font-semibold">{{ 'product' | translate }} {{$index + 1}}</span></div>
+              <div><span class="font-semibold">{{ 'name' | translate }}:</span> {{product.name}}</div>
+              <div><span class="font-semibold">{{ 'quantity' | translate }}:</span> {{product.quantity}}</div>
               <div>
             <span [ngStyle]="{
                 'text-decoration': product.isPurchased ? 'line-through' : 'none',
@@ -88,18 +87,18 @@
           }
         </div>
 
-        <input type="button" value="Copy List" (click)="copyListToClipboard()" class="bg-blue-500 rounded-xl border-solid p-2 cursor-pointer">
-        <input type="button" value="Share on WhatsApp" (click)="shareOnWhatsApp()" class="bg-green-500 rounded-xl border-solid p-2 cursor-pointer">
+        <input type="button" value="{{'copy-list' | translate}}" (click)="copyListToClipboard()" class="bg-blue-500 rounded-xl border-solid p-2 cursor-pointer">
+        <input type="button" value="{{'share-on-whatsapp' | translate}}" (click)="shareOnWhatsApp()" class="bg-green-500 rounded-xl border-solid p-2 cursor-pointer">
         <div class="flex justify-center items-center space-x-4">
           <input
             type="button"
-            value="Update"
+            value="{{'update' | translate}}"
             (click)="switchMode(item.id!)"
             class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 cursor-pointer"
           />
           <input
             type="button"
-            value="Delete"
+            value="{{'delete' | translate}}"
             (click)="deleteItem(item.id!)"
             class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 cursor-pointer"
           />
@@ -115,7 +114,7 @@
       [disabled]="currentPage === 1"
       class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 disabled:opacity-50"
     >
-      Previous
+      {{ 'previous' | translate }}
     </button>
     <span *ngFor="let page of getPageNumbers()">
     <button
@@ -131,15 +130,15 @@
       [disabled]="currentPage === totalPages"
       class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 disabled:opacity-50"
     >
-      Next
+      {{ 'next' | translate }}
     </button>
   </div>
 }
 @else {
   <div>
-    There are no items here yet
+    {{ 'no-items'  | translate }}
   </div>
 }
 
 <app-scroll-to-top/>
-<app-footer></app-footer>
+<app-footer/>

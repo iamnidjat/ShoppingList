@@ -13,19 +13,20 @@
          alt="az" class="w-6 h-6 cursor-pointer hover:opacity-80">
   </div>
 
-  <!-- Navigation in the center -->
-  <nav class="flex space-x-6 text-white">
-    <a routerLink="/main" class="hover:text-gray-200">Home</a>
-    <a routerLink="/add-item" class="hover:text-gray-200">Add item</a>
-  </nav>
+  @if(visibility)
+  {
+    <nav class="flex space-x-6 text-white">
+      <a routerLink="/main" class="hover:text-gray-200">{{ 'home' | translate }}</a>
+      <a routerLink="/add-item" class="hover:text-gray-200">{{ 'add-item' | translate }}</a>
+    </nav>
 
-  <!-- Log Out button on the right -->
-  <div>
-    <input
-      type="button"
-      value="Log Out"
-      (click)="logOut()"
-      class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700 cursor-pointer"
-    />
-  </div>
+    <div>
+      <input
+        type="button"
+        value="{{'log-out' | translate}}"
+        (click)="logOut()"
+        class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700 cursor-pointer"
+      />
+    </div>
+  }
 </div>
