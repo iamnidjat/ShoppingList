@@ -9,10 +9,11 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
 import {Product} from '../../models/Product';
+import {FooterComponent} from '../footer/footer.component';
 
 @Component({
   selector: 'app-main',
-  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe, DragDropModule, ScrollToTopComponent],
+  imports: [HttpClientModule, HeaderComponent, FormsModule, NgStyle, NgForOf, TranslatePipe, DragDropModule, ScrollToTopComponent, FooterComponent],
   providers: [ManipulateDataService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
