@@ -5,6 +5,7 @@ import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {HeaderComponent} from '../header/header.component';
 import {FooterComponent} from '../footer/footer.component';
 import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
+import {NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +14,9 @@ import {ScrollToTopComponent} from '../scroll-to-top/scroll-to-top.component';
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
-    ScrollToTopComponent
+    ScrollToTopComponent,
+    NgIf,
+    NgClass
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
@@ -24,6 +27,7 @@ export class AuthComponent {
   public username: string = "";
   public password: string = "";
   public hiddenEye: boolean = false;
+  public showTooltip: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -32,6 +36,7 @@ export class AuthComponent {
   }
 
   public showText(): void {
+    if (!this.password) return;
     this.hiddenEye = !this.hiddenEye;
   }
 

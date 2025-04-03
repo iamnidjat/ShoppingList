@@ -30,8 +30,7 @@ export class MainComponent implements OnInit {
   public pageSize: number = 2;
   public totalPages: number = 0;
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.items = this.myService.getItems();
