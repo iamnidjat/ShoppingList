@@ -23,11 +23,16 @@ export class AuthComponent {
   private translate = inject(TranslateService);
   public username: string = "";
   public password: string = "";
+  public hiddenEye: boolean = false;
 
   constructor(private router: Router) {}
 
   public onSubmit(): void {
     this.signIn(this.username, this.password);
+  }
+
+  public showText(): void {
+    this.hiddenEye = !this.hiddenEye;
   }
 
   private signIn(username: string, password: string): void {

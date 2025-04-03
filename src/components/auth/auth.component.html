@@ -21,7 +21,7 @@
       <div class="mb-6">
         <label for="password" class="block text-gray-700 font-semibold mb-2">{{ 'password' | translate }}:</label>
         <input
-          type="password"
+          type="{{!hiddenEye ? 'password' :'text'}}"
           id="password"
           name="password"
           [(ngModel)]="password"
@@ -29,6 +29,7 @@
           placeholder="{{'enter-your-password' | translate}}"
           class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        <input type="button" value="hidden eye" (click)="showText()"/>
       </div>
 
       <button
