@@ -34,3 +34,6 @@ git clone https://github.com/yourusername/your-shopping-list.git
 cd your-shopping-list
 npm install
 ng serve
+
+🛡️ Disclaimer
+This is a personal pet project made for learning purposes. The login system is intentionally basic and not intended for production use.
