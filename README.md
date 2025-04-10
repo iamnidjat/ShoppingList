@@ -21,6 +21,9 @@ A minimalist and intuitive shopping list manager built with **Angular 19**.
 - ⬆️ **Scroll to top** button for easy navigation
 - 🛠 **More features coming soon...**
 
+🛡️ Disclaimer
+This is a personal pet project made for learning purposes. The login system is intentionally basic and not intended for production use.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -34,6 +37,3 @@ git clone https://github.com/yourusername/your-shopping-list.git
 cd your-shopping-list
 npm install
 ng serve
-
-🛡️ Disclaimer
-This is a personal pet project made for learning purposes. The login system is intentionally basic and not intended for production use.
